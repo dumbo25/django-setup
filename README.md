@@ -15,7 +15,7 @@ wget https://raw.githubusercontent.com/dumbo25/django-setup/main/django.cfg
 
 Run 
 ```
-bash djamgo.sh -h
+bash django.sh -h
 ```
 which shows helps
 
@@ -23,7 +23,7 @@ Help shows the parameters to edit in the cfg file, and the options to use with t
 
 To install and setup django run the command:
 ```
-bash djamgo.sh
+bash django.sh
 ```
 
 ## See your website
