@@ -32,3 +32,7 @@ Everything should install correctly. To see your website, do the following:
 bash server.sh
 ```
 And it will tell you the URL to use to see your website on your laptop
+
+## Project
+* [Detailed project instructions](https://sites.google.com/site/cartwrightraspberrypiprojects/django-setup)
+
