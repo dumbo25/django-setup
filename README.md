@@ -6,14 +6,20 @@ Latest version of Raspberry Pi OS
 
 ## Django installation 
 Login to Raspberry Pi
+
 Run wget and pull the raw versions django.sh and django.cfg to the Raspberry Pi
+```
+wget https://raw.githubusercontent.com/dumbo25/django-setup/main/django.sh
+wget https://raw.githubusercontent.com/dumbo25/django-setup/main/django.cfg
+```
+
 Run 
 ```
 bash djamgo.sh -h
 ```
 which shows helps
 
-Help shows the parameters to edit in the cfg file, and the options to use with the script
+Help shows the parameters to edit in the cfg file, and the options to use with the script. Make your changes to django.cfg
 
 To install and setup django run the command:
 ```
