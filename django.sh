@@ -1058,6 +1058,18 @@ else
 fi
 
 # if ufw is enabled, then allow the port: 8000
+c=$(ufw status | grep active)
+if [[ $c == *"inactive"* ]]
+then
+    # echo "ufw is disabled"
+    # pass
+    ;
+elif [[ $c == *"active"* ]]
+then
+    sudo ufw allow from 192.168.1.0/24 to any port 8000
+# else
+#   echo "ufw is not installed ?"
+fi
 sudo ufw allow from 192.168.1.0/24 to any port 8000
 
 changeDirectory "$BaseDirectory"
