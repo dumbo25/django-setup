@@ -47,6 +47,7 @@
 #      j.1) do a hello world static page
 #   l) create checkVersion function; read in version number and command to get version number ??? python3, pip3, django
 #   m) check if sqlite3 db works
+#      m.1) if add superuser works, check sqlite3 db ? 
 #   o) check if ufw is enabled before adding firewall rule for port
 #
 #   w) fix issues in logs
