@@ -998,24 +998,27 @@ if [ "$VirtualEnv" = true ]
 then
     changeDirectory "$BaseDirectory/$DjangoProject"
     source "v_$DjangoProject/bin/activate"
-    # create useer
+    # create user
     echo -e "\n   ${Bold}${Blue} answer questions to create superuser ${Black}${Normal}"
-    python3 manage.py createsuperuser
+    # python3 manage.py createsuperuser
+    DJANGO_SUPERUSER_USERNAME=$SuperUserName \
+    DJANGO_SUPERUSER_PASSWORD=SuperUserPassword \
+    DJANGO_SUPERUSER_EMAIL=SuperUserEmail \ 
+    python3 manage.py createsuperuser --noinput
 
     # get static files
     echo -e "\n   ${Bold}${Blue} get static files ${Black}${Normal}"
     python3 manage.py collectstatic
 else
-    # create useer
+    # create user
     changeDirectory "$BaseDirectory/$DjangoProject/p_$DjangoProject"
 
     echo -e "\n   ${Bold}${Blue} answer questions to create superuser ${Black}${Normal}"
-    python3 manage.py createsuperuser
-    # DJANGO_SUPERUSER_USERNAME=pi4 \
-    # DJANGO_SUPERUSER_PASSWORD=pi4pi4 \
-    # DJANGO_SUPERUSER_EMAIL=pi4@gmail.com 
-    # python3 manage.py createsuperuser --noinput
-
+    # python3 manage.py createsuperuser
+    DJANGO_SUPERUSER_USERNAME=$SuperUserName \
+    DJANGO_SUPERUSER_PASSWORD=SuperUserPassword \
+    DJANGO_SUPERUSER_EMAIL=SuperUserEmail \ 
+    python3 manage.py createsuperuser --noinput
 
     # get static files
     mkdir "$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/static"
