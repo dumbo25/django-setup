@@ -17,7 +17,7 @@
 # comments, docstrings or help within the code. Next, I remove the completed
 # items.
 #
-# Create an Django Apps script:
+# Create a separate script for Django Apps:
 #   a) create a shell script for apps
 #      a.1) need to add urls.py to each app
 #       nano /home/pi/newt_site/urls.py or is it newt_site/newt_site
@@ -31,14 +31,17 @@
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
 #   c) update help in django.sh
-#      c.4) create raspbery pi google sites page explaing how to set up django using django.sh
+#      c.4) create raspbery pi google sites page explaining how to set up django using django.sh
 #      c.5) create new github repository
+#      c.6) move help to django.cfg and update help function
 #   d) add superuser, email and password to create user in .cfg - no manual entry
 #   f) move $BaseDirectory from /home/pi to /var/www
 #      f.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
 #   g) use systemd to start webserver
 #      g.1) generate myproject.services file systemd and load and start service at boot
-#   h) move from http 80 to https 443
+#   h) port
+#     h.1) move from http 80 (or 8000) to https 443
+#     h.2) specify port in .cfg
 #   i) ensure static files work
 #   j) redo from scratch; starting with clean RPi OS install
 #      j.1) do a hellow world static page
