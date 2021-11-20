@@ -25,15 +25,14 @@
 #      a.3) get beyond rocket ship django demo page
 #   b) use django apps checklist
 #
+# Create a separet script to add css
+#   a) add ui css
+#
 # To Do List:
 #   a) security checklist
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   c) update help in django.sh
-#      c.4) create raspbery pi google sites page explaining how to set up django using django.sh
-#      c.5) create new github repository
-#      c.6) move help to django.cfg and update help function
 #   d) add superuser, email and password to create user in .cfg - no manual entry
 #   f) move $BaseDirectory from /home/pi to /var/www
 #      f.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
@@ -42,13 +41,12 @@
 #   h) port
 #     h.1) move from http 80 (or 8000) to https 443
 #     h.2) specify port in .cfg
+#     h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
 #   i) ensure static files work
 #   j) redo from scratch; starting with clean RPi OS install
-#      j.1) do a hellow world static page
-#   k) can any other port work to work *e.g., 8000 >> 443 or 8443)
+#      j.1) do a hello world static page
 #   l) create checkVersion function; read in version number and command to get version number ??? python3, pip3, django
 #   m) check if sqlite3 db works
-#   n) add ui css
 #   o) check if ufw is enabled before adding firewall rule for port
 #
 #   w) fix issues in logs
@@ -925,6 +923,7 @@ then
     sudo apt upgrade -y
     echo -e "\n  ${Bold}${Blue}removing trash ${Black}${Normal}"
     sudo apt autoremove -y
+    sudo apt clean
 
     # the above generates a lot of things that may not be relevant to the install of
     # this application. So, clear the screen and then put Starting message here.
