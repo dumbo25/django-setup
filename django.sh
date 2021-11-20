@@ -1003,7 +1003,7 @@ then
     # python3 manage.py createsuperuser
     DJANGO_SUPERUSER_USERNAME=$SuperUserName \
     DJANGO_SUPERUSER_PASSWORD=$SuperUserPassword \
-    DJANGO_SUPERUSER_EMAIL=$SuperUserEmail \ 
+    DJANGO_SUPERUSER_EMAIL=$SuperUserEmail \
     python3 manage.py createsuperuser --noinput
 
     # get static files
@@ -1017,7 +1017,7 @@ else
     # python3 manage.py createsuperuser
     DJANGO_SUPERUSER_USERNAME=$SuperUserName \
     DJANGO_SUPERUSER_PASSWORD=$SuperUserPassword \
-    DJANGO_SUPERUSER_EMAIL=$SuperUserEmail \ 
+    DJANGO_SUPERUSER_EMAIL=$SuperUserEmail \
     python3 manage.py createsuperuser --noinput
 
     # get static files
