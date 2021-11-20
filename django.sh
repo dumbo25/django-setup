@@ -33,7 +33,6 @@
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   e) check if ufw is enabled before adding firewall rule for port
 #   f) move $BaseDirectory from /home/pi to /var/www
 #      f.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
 #   g) use systemd to start webserver
