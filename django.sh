@@ -33,27 +33,25 @@
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   d) add superuser, email and password to create user in .cfg - no manual entry
+#   e) check if ufw is enabled before adding firewall rule for port
 #   f) move $BaseDirectory from /home/pi to /var/www
 #      f.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
 #   g) use systemd to start webserver
 #      g.1) generate myproject.services file systemd and load and start service at boot
 #   h) port
-#     h.1) move from http 80 (or 8000) to https 443
-#     h.2) specify port in .cfg
-#     h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
-#   i) ensure static files work
+#      h.1) move from http 80 (or 8000) to https 443
+#      h.2) specify port in .cfg
+#      h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
 #   j) redo from scratch; starting with clean RPi OS install
-#      j.1) do a hello world static page
+#      j.1) do a hello world static page, instead of rocketship
+#      j.2) ensure static files work
+#      j.3) turn off django debug
 #   l) create checkVersion function; read in version number and command to get version number ??? python3, pip3, django
-#   m) check if sqlite3 db works
-#      m.1) if add superuser works, check sqlite3 db ? 
-#   o) check if ufw is enabled before adding firewall rule for port
 #
 #   w) fix issues in logs
-#      e.1) tail /var/log/apache2/access.log
-#      e.2) tail /var/log/apache2/error.log
-#      e.3) cat /var/log/syslog
+#      w.1) tail /var/log/apache2/access.log
+#      w.2) tail /var/log/apache2/error.log
+#      w.3) cat /var/log/syslog
 #   x) run shellcheck
 #   y) add django.sh and django.cfg to github duplicator
 #   z) add install.sh and install.cfg to github template
