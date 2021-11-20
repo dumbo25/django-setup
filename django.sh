@@ -49,6 +49,7 @@
 #   l) create checkVersion function; read in version number and command to get version number ??? python3, pip3, django
 #   m) check if sqlite3 db works
 #   n) add ui css
+#   o) check if ufw is enabled before adding firewall rule for port
 #
 #   w) fix issues in logs
 #      e.1) tail /var/log/apache2/access.log
