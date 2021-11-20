@@ -1047,6 +1047,9 @@ else
     b_cmd="python3 manage.py runserver $IP_ADDRESS:8000"
 fi
 
+# if ufw is enabled, then allow the port: 8000
+sudo ufw allow from 192.168.1.0/24 to any port 8000
+
 changeDirectory "$BaseDirectory"
 read -r -d '' ServerScript <<- EOM
 # Run these commands:
