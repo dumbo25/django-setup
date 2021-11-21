@@ -318,8 +318,12 @@ echo "DEBUG:     ls NoVirtual"
 ls "$NoVirtualEnvDjangoDirectory"
         echo -e "\n   ${Bold}${Blue} ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject ${Black}${Normal}"
         # need to allow others to write
+echo "DEBUG:     chmod"
         sudo chmod -R 775 /var/www/
+echo "DEBUG:     set d_cmd"
         d_cmd="${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
+echo "DEBUG:     d_cmd = $d_cmd"
+echo "DEBUG:     eval d_cmd"
         eval "$d_cmd"
     fi
 echo "DEBUG: after where failure should have occurred"
