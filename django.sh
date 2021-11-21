@@ -595,6 +595,7 @@ echo "DEBUG: after restart"
     else
         echo -e "\n  ${Bold}${Blue}no services to restart in cfg file ${Black}${Normal}"
     fi
+echo "DEBUG: exiting restart services"
 }
 
 function getSettings {
@@ -1083,11 +1084,9 @@ fi
 
 
 # if ufw is enabled, then allow the port: $DjangoPort
-c=$(ufw status | grep active)
+c=$(sudo ufw status | grep active)
 if [[ $c == *"inactive"* ]]
 then
-    # echo "ufw is disabled"
-    # pass
     echo "ufw is installed and inactive"
 elif [[ $c == *"active"* ]]
 then
