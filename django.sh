@@ -317,6 +317,8 @@ echo "DEBUG:     p_DjangoProject = p_$DjangoProject"
 echo "DEBUG:     ls NoVirtual"
 ls "$NoVirtualEnvDjangoDirectory"
         echo -e "\n   ${Bold}${Blue} ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject ${Black}${Normal}"
+        # need to allow others to write
+        sudo chmod -R 775 /var/www/
         d_cmd="${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
         eval "$d_cmd"
     fi
