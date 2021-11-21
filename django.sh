@@ -262,11 +262,11 @@ function installDjango {
     changeDirectory "$BaseDirectory/$DjangoProject$VirtualDirectory"
     pwd
 
-    export PATH="$BaseDirectory/.local/bin:$PATH"
+    export PATH="$HomeDirectory/.local/bin:$PATH"
     if [ "$VirtualEnv" = true ]
     then
-        # export PATH="$BaseDirectory/.local/bin:$PATH"
-        rm_cmd="rm $BaseDirectory/$DjangoProject$VirtualDirectory/bin/django-admin.py"
+        # export PATH="$HomeDirectory/.local/bin:$PATH"
+        rm_cmd="rm $HomeDirectory/$DjangoProject$VirtualDirectory/bin/django-admin.py"
     else
         rm_cmd="rm ${NoVirtualEnvDjangoDirectory}django-admin.py"
     fi
@@ -885,7 +885,7 @@ do
         v) # do not add or run from virtual env
             VirtualEnv=false
             VirtualDirectory=""
-            NoVirtualEnvDjangoDirectory="$BaseDirectory/.local/bin/"
+            NoVirtualEnvDjangoDirectory="$HomeDirectory/.local/bin/"
             ;;
         *) # handle invalid options
             echoStartingScript
