@@ -261,11 +261,11 @@ function installDjango {
     changeDirectory "$BaseDirectory/$DjangoProject$VirtualDirectory"
     pwd
 
-    export PATH="$HomeDirectory/.local/bin:$PATH"
+    export PATH="$BaseDirectory/.local/bin:$PATH"
     if [ "$VirtualEnv" = true ]
     then
-        # export PATH="$HomeDirectory/.local/bin:$PATH"
-        rm_cmd="rm $HomeDirectory/$DjangoProject$VirtualDirectory/bin/django-admin.py"
+        # export PATH="$BaseDirectory/.local/bin:$PATH"
+        rm_cmd="rm $BaseDirectory/$DjangoProject$VirtualDirectory/bin/django-admin.py"
     else
         rm_cmd="rm ${NoVirtualEnvDjangoDirectory}django-admin.py"
     fi
@@ -614,12 +614,12 @@ function getApacheConf {
     then
         static="$BaseDirectory/$DjangoProject/static"
         wsgi="$BaseDirectory/$DjangoProject/p_$DjangoProject"
-        daemon="$DjangoProject python-path=$HomeDirectory/$DjangoProject python-home=$HomeDirectory/$DjangoProject$VirtualDirectory"
+        daemon="$DjangoProject python-path=$BaseDirectory/$DjangoProject python-home=$BaseDirectory/$DjangoProject$VirtualDirectory"
         alias="/$BaseDirectory/$DjangoProject/p_$DjangoProject/wsgi.py"
     else
         static="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/static"
         wsgi="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject"
-        daemon="$DjangoProject python-path=$HomeDirectory/$DjangoProject python-home=$HomeDirectory/$DjangoProject/p_$DjangoProject"
+        daemon="$DjangoProject python-path=$BaseDirectory/$DjangoProject python-home=$BaseDirectory/$DjangoProject/p_$DjangoProject"
         alias="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/wsgi.py"
     fi
 
