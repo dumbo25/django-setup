@@ -33,8 +33,13 @@
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   f) move $BaseDirectory from /home/pi to /var/www
-#      f.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
+#   e) move $BaseDirectory from /home/pi to /var/www
+#      e.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
+#      e.2) ensure /var/www directories are NOT deleted
+#   f) get static pages to work
+#      f.1) do a hello world static page, instead of rocketship
+#      f.2) ensure static files work
+#      f.3) turn off django debug
 #   g) use systemd to start webserver
 #      g.1) generate myproject.services file systemd and load and start service at boot
 #   h) port
@@ -42,9 +47,7 @@
 #      h.2) specify port in .cfg
 #      h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
 #   j) redo from scratch; starting with clean RPi OS install
-#      j.1) do a hello world static page, instead of rocketship
-#      j.2) ensure static files work
-#      j.3) turn off django debug
+#   k) move the additonal script comments above elsewhere
 #
 #   x) fix issues in logs
 #      x.1) tail /var/log/apache2/access.log
