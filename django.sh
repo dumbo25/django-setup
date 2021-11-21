@@ -1088,7 +1088,7 @@ then
 elif [[ "$c" == *"active"* ]]
 then
     echo "ufw is installed and active"
-    echo " adding rule allow from 192.168.1.0/24 to any port "$DjangoPort"
+    echo "   adding rule allow from 192.168.1.0/24 to any port $DjangoPort"
     sudo ufw allow from 192.168.1.0/24 to any port "$DjangoPort"
 # else
     echo "ufw is not installed"
