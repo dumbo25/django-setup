@@ -322,6 +322,10 @@ echo "DEBUG:     chmod"
         sudo chmod -R 775 /var/www/
 echo "DEBUG:     set d_cmd"
         d_cmd="${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
+echo "DEBUG:     ls -l /var/www"
+ls -l /var/www
+echo "DEBUG:     ls -l /var/www/TestProject"
+ls -l /var/www/TestProject
 echo "DEBUG:     d_cmd = $d_cmd"
 echo "DEBUG:     eval d_cmd"
         eval "$d_cmd"
