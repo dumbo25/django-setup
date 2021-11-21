@@ -24,6 +24,17 @@
 #      a.2) app.urls
 #      a.3) get beyond rocket ship django demo page
 #   b) use django apps checklist
+#   c) get static pages to work 
+#      c.1) https://djangoforbeginners.com/hello-world/)
+#           better than above: https://learndjango.com/tutorials/hello-world-5-different-ways
+#           python manage.py startapp pages
+#           # nano pages/views.py
+#           from django.http import HttpResponse
+#           def homePageView(request):
+#               return HttpResponse("Hello, World!")
+#      c.2) do a hello world static page, instead of rocketship
+#      c.3) ensure static files work
+#      c.4) turn off django debug
 #
 # Create a separet script to add css
 #   a) add ui css
@@ -33,10 +44,6 @@
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   f) get static pages to work
-#      f.1) do a hello world static page, instead of rocketship
-#      f.2) ensure static files work
-#      f.3) turn off django debug
 #   g) use systemd to start webserver
 #      g.1) generate myproject.services file systemd and load and start service at boot
 #   h) port
