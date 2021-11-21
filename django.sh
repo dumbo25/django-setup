@@ -301,9 +301,16 @@ function createDjangoProject {
     # above removed django-admin.py, so use django-admin
     if [ "$VirtualEnv" = true ]
     then
+echo "DEBUG: VirtualEnv = true"
+echo "DEBUG: this should be where it fails:"
+echo "DEBUG:     NoVirtual = ${NoVirtualEnvDjangoDirectory}"
+echo "DEBUG:     p_DjangoProject = p_$DjangoProject"
+echo "DEBUG:     ls NoVirtual"
+ls "$NoVirtualEnvDjangoDirectory"
         echo -e "\n   ${Bold}${Blue}django-admin startproject p_$DjangoProject ${Black}${Normal}"
         django-admin startproject "p_$DjangoProject" .
     else
+echo "DEBUG: VirtualEnv = false"
 echo "DEBUG: this should be where it fails:"
 echo "DEBUG:     NoVirtual = ${NoVirtualEnvDjangoDirectory}"
 echo "DEBUG:     p_DjangoProject = p_$DjangoProject"
