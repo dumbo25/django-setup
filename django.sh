@@ -1084,12 +1084,17 @@ restartServices
 
 if [ "$VirtualEnv" = true ]
 then
+echo "DEBUG: VirtualEnv = true"
     a_cmd="source $BaseDirectory/$DjangoProject$VirtualDirectory/bin/activate"
     b_cmd="$BaseDirectory/$DjangoProject/manage.py runserver $IP_ADDRESS:8000"
 else
+echo "DEBUG: VirtualEnv = false"
     a_cmd="cd p_$DjangoProject"
     b_cmd="python3 manage.py runserver $IP_ADDRESS:8000"
 fi
+echo "DEBUG: a_cmd = $a_cmd"
+echo "DEBUG: b_cmd = $b_cmd"
+
 
 # if ufw is enabled, then allow the port: 8000
 c=$(ufw status | grep active)
@@ -1106,6 +1111,9 @@ then
     echo "ufw is not installed"
 fi
 
+echo "DEBUG: BaseDirectory = $BaseDirectory"
+echo "DEBUG: DjangoProject = $DjangoProject"
+
 changeDirectory "$BaseDirectory"
 read -r -d '' ServerScript <<- EOM
 # Run these commands:
@@ -1114,8 +1122,8 @@ read -r -d '' ServerScript <<- EOM
   ${b_cmd}
 
 # Or, run this script:
-  bash server.sh
-
+#   bash server.sh
+#
 # Then open a browser and enter: http://$IP_ADDRESS:8000
 EOM
 
