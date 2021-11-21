@@ -1006,7 +1006,10 @@ installPip3
     fi
 
 
-
+if [ $BaseDirectory = "/var/www" ]
+then
+    sudo chmod -R 777 /var/www/
+fi
 
 # create project sirectory
 createProjectDirectory
