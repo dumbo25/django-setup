@@ -304,11 +304,17 @@ function createDjangoProject {
         echo -e "\n   ${Bold}${Blue}django-admin startproject p_$DjangoProject ${Black}${Normal}"
         django-admin startproject "p_$DjangoProject" .
     else
+echo "DEBUG: this should be where it fails:"
+echo "DEBUG:     NoVirtual = ${NoVirtualEnvDjangoDirectory}"
+echo "DEBUG:     p_DjangoProject = p_$DjangoProject"
+echo "DEBUG:     ls NoVirtual"
+ls "$NoVirtualEnvDjangoDirectory"
         echo -e "\n   ${Bold}${Blue} ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject ${Black}${Normal}"
         # added sudo in moving /var/www
         d_cmd="sudo ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
         eval "$d_cmd"
     fi
+echo "DEBUG: after where failure should have occurred"
 
     pwd
     ls -l
