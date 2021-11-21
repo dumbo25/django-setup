@@ -1122,7 +1122,7 @@ read -r -d '' ServerScript <<- EOM
   ${b_cmd}
 
 # Or, run this script:
-#   bash server.sh
+#   "bash $BaseDirectory/server.sh"
 #
 # Then open a browser and enter: http://$IP_ADDRESS:8000
 EOM
