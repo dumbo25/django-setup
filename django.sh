@@ -305,7 +305,8 @@ function createDjangoProject {
         django-admin startproject "p_$DjangoProject" .
     else
         echo -e "\n   ${Bold}${Blue} ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject ${Black}${Normal}"
-        d_cmd="${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
+        # added sudo in moving /var/www
+        d_cmd="sudo ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
         eval "$d_cmd"
     fi
 
