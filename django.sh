@@ -1097,14 +1097,14 @@ if [[ $c == *"inactive"* ]]
 then
     # echo "ufw is disabled"
     # pass
-    ;
+    echo "ufw is disabled"
 elif [[ $c == *"active"* ]]
 then
+    echo "ufw is disabled"
     sudo ufw allow from 192.168.1.0/24 to any port 8000
 # else
-#   echo "ufw is not installed ?"
+    echo "ufw is not installed"
 fi
-sudo ufw allow from 192.168.1.0/24 to any port 8000
 
 changeDirectory "$BaseDirectory"
 read -r -d '' ServerScript <<- EOM
