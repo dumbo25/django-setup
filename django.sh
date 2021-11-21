@@ -1073,14 +1073,14 @@ restartServices
 if [ "$VirtualEnv" = true ]
 then
     a_cmd="source $BaseDirectory/$DjangoProject$VirtualDirectory/bin/activate"
-    b_cmd="$BaseDirectory/$DjangoProject/manage.py runserver $IP_ADDRESS:8000"
+    b_cmd="$BaseDirectory/$DjangoProject/manage.py runserver $IP_ADDRESS:$DjangoPort"
 else
     a_cmd="cd p_$DjangoProject"
-    b_cmd="python3 manage.py runserver $IP_ADDRESS:8000"
+    b_cmd="python3 manage.py runserver $IP_ADDRESS:$DjangoPort"
 fi
 
 
-# if ufw is enabled, then allow the port: 8000
+# if ufw is enabled, then allow the port: $DjangoPort
 c=$(ufw status | grep active)
 if [[ $c == *"inactive"* ]]
 then
@@ -1090,7 +1090,7 @@ then
 elif [[ $c == *"active"* ]]
 then
     echo "ufw is disabled"
-    sudo ufw allow from 192.168.1.0/24 to any port 8000
+    sudo ufw allow from 192.168.1.0/24 to any port "$DjangoPort"
 # else
     echo "ufw is not installed"
 fi
@@ -1105,7 +1105,7 @@ read -r -d '' ServerScript <<- EOM
 # Or, run this script:
 #   "bash $BaseDirectory/server.sh"
 #
-# Then open a browser and enter: http://$IP_ADDRESS:8000
+# Then open a browser and enter: http://$IP_ADDRESS:$DjangoPort
 EOM
 
 echo "$ServerScript" >| server.sh
