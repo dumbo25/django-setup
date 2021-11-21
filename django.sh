@@ -588,7 +588,9 @@ function restartServices {
         for p in "${RestartServices[@]}"
         do
             echo "    ${Bold}${Blue}$p ${Black}${Normal}"
+echo "DEBUG: restart $p"
             sudo systemctl restart "$p"
+echo "DEBUG: after restart"
         done
     else
         echo -e "\n  ${Bold}${Blue}no services to restart in cfg file ${Black}${Normal}"
@@ -1086,10 +1088,10 @@ if [[ $c == *"inactive"* ]]
 then
     # echo "ufw is disabled"
     # pass
-    echo "ufw is disabled"
+    echo "ufw is installed and inactive"
 elif [[ $c == *"active"* ]]
 then
-    echo "ufw is disabled"
+    echo "ufw is installed and active"
     sudo ufw allow from 192.168.1.0/24 to any port "$DjangoPort"
 # else
     echo "ufw is not installed"
