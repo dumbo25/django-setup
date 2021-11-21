@@ -448,7 +448,8 @@ function makePath {
         then
             echo "    ${Bold}${Blue}making path: $1 ${Black}${Normal}"
             # -p makes all parent directories if necessary
-            mkdir -p "$1"
+            # added sudo in moving BaseDirectory to /var/www
+            sudo mkdir -p "$1"
         fi
     fi
 }
