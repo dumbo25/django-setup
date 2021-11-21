@@ -45,15 +45,16 @@
 #      j.1) do a hello world static page, instead of rocketship
 #      j.2) ensure static files work
 #      j.3) turn off django debug
-#   l) create checkVersion function; read in version number and command to get version number ??? python3, pip3, django
 #
-#   w) fix issues in logs
-#      w.1) tail /var/log/apache2/access.log
-#      w.2) tail /var/log/apache2/error.log
-#      w.3) cat /var/log/syslog
-#   x) run shellcheck
-#   y) add django.sh and django.cfg to github duplicator
-#   z) add install.sh and install.cfg to github template
+#   x) fix issues in logs
+#      x.1) tail /var/log/apache2/access.log
+#      x.2) tail /var/log/apache2/error.log
+#      x.3) cat /var/log/syslog
+#   y) run shellcheck
+#   z) add install.sh and install.cfg to github 
+#
+# Do later or not at all:
+#   l) create checkVersion function; read in version number and command to get version number ??? python3, pip3, django
 #
 # References:
 #    deploy to production and security checklist
