@@ -1085,6 +1085,7 @@ fi
 
 # if ufw is enabled, then allow the port: $DjangoPort
 c=$(sudo ufw status | grep active)
+echo "DEBUG: c = $c"
 if [[ $c == *"inactive"* ]]
 then
     echo "ufw is installed and inactive"
