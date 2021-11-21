@@ -147,7 +147,8 @@ function createProjectDirectory {
 
     # make and move into django project directory
     echo -e "\n ${Bold}${Blue}make project directory: $DjangoProject ${Black}${Normal}"
-    mkdir "$DjangoProject"
+    # changed to sudo for /var/www
+    sudo mkdir "$DjangoProject"
 
     echo -e "   ${Bold}${Blue}cd $BaseDirectory/$DjangoProject ${Black}${Normal}"
     changeDirectory "$BaseDirectory/$DjangoProject"
