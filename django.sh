@@ -35,22 +35,24 @@
 #      c.2) do a hello world static page, instead of rocketship
 #      c.3) ensure static files work
 #      c.4) turn off django debug
+#   d) deploy script
+#      d.1) security checklist
+#      d.2) turn off Django debug
+#      d.3) run this: manage.py check --deploy
 #
-# Create a separet script to add css
+# Create a seperate script to add css
 #   a) add ui css
 #
+#   i) use systemd to start webserver
+#      i.1) generate myproject.services file systemd and load and start service at boot
+#   k) move the additonal script comments above elsewhere
+#
 # To Do List:
-#   a) security checklist
-#      a.1) turn off Django debug
-#      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
 #   h) port
 #      h.1) move from http 80 (or 8000) to https 443
 #      h.2) specify port in .cfg
 #      h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
-#   i) use systemd to start webserver
-#      i.1) generate myproject.services file systemd and load and start service at boot
-#   k) move the additonal script comments above elsewhere
 #
 #   x) fix issues in logs
 #      x.1) tail /var/log/apache2/access.log
@@ -310,42 +312,16 @@ function createDjangoProject {
     # above removed django-admin.py, so use django-admin
     if [ "$VirtualEnv" = true ]
     then
-echo "DEBUG: VirtualEnv = true"
-echo "DEBUG: this should be where it fails:"
-echo "DEBUG:     NoVirtual = ${NoVirtualEnvDjangoDirectory}"
-echo "DEBUG:     p_DjangoProject = p_$DjangoProject"
-echo "DEBUG:     ls NoVirtual"
-ls "$NoVirtualEnvDjangoDirectory"
         echo -e "\n   ${Bold}${Blue}django-admin startproject p_$DjangoProject ${Black}${Normal}"
         django-admin startproject "p_$DjangoProject" .
     else
-echo "DEBUG: VirtualEnv = false"
-echo "DEBUG: this should be where it fails:"
-echo "DEBUG:     NoVirtual = ${NoVirtualEnvDjangoDirectory}"
-echo "DEBUG:     p_DjangoProject = p_$DjangoProject"
-echo "DEBUG:     ls NoVirtual"
-ls "$NoVirtualEnvDjangoDirectory"
         echo -e "\n   ${Bold}${Blue} ${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject ${Black}${Normal}"
         # need to allow others to write
-echo "DEBUG:     sudo chmod -R 777 /var/www/"
         sudo chmod -R 777 /var/www/
-echo "DEBUG:     ls -l /var/www"
-ls -l /var/www
-echo "DEBUG:     sudo chmod -R 777 /var/www/TestProject"
         sudo chmod -R 777 /var/www/TestProject
-echo "DEBUG:     ls -l /var/www/TestProject"
-ls -l /var/www/TestProject
-
-echo "DEBUG:     set d_cmd"
         d_cmd="${NoVirtualEnvDjangoDirectory}django-admin startproject p_$DjangoProject"
-echo "DEBUG:     ls -l /var/www/TestProject/p_TestProject"
-ls -l /var/www/TestProject/p_TestProject
-
-echo "DEBUG:     d_cmd = $d_cmd"
-echo "DEBUG:     eval d_cmd"
         eval "$d_cmd"
     fi
-echo "DEBUG: after where failure should have occurred"
 
     pwd
     ls -l
@@ -1096,16 +1072,12 @@ restartServices
 
 if [ "$VirtualEnv" = true ]
 then
-echo "DEBUG: VirtualEnv = true"
     a_cmd="source $BaseDirectory/$DjangoProject$VirtualDirectory/bin/activate"
     b_cmd="$BaseDirectory/$DjangoProject/manage.py runserver $IP_ADDRESS:8000"
 else
-echo "DEBUG: VirtualEnv = false"
     a_cmd="cd p_$DjangoProject"
     b_cmd="python3 manage.py runserver $IP_ADDRESS:8000"
 fi
-echo "DEBUG: a_cmd = $a_cmd"
-echo "DEBUG: b_cmd = $b_cmd"
 
 
 # if ufw is enabled, then allow the port: 8000
@@ -1122,9 +1094,6 @@ then
 # else
     echo "ufw is not installed"
 fi
-
-echo "DEBUG: BaseDirectory = $BaseDirectory"
-echo "DEBUG: DjangoProject = $DjangoProject"
 
 changeDirectory "$BaseDirectory"
 read -r -d '' ServerScript <<- EOM
