@@ -44,13 +44,12 @@
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   g) use systemd to start webserver
-#      g.1) generate myproject.services file systemd and load and start service at boot
 #   h) port
 #      h.1) move from http 80 (or 8000) to https 443
 #      h.2) specify port in .cfg
 #      h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
-#   j) redo from scratch; starting with clean RPi OS install
+#   i) use systemd to start webserver
+#      i.1) generate myproject.services file systemd and load and start service at boot
 #   k) move the additonal script comments above elsewhere
 #
 #   x) fix issues in logs
