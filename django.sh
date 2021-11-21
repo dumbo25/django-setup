@@ -33,9 +33,6 @@
 #      a.1) turn off Django debug
 #      a.2) run this: manage.py check --deploy
 # ??? **************************** STOPPED HERE ******************** ???
-#   e) move $BaseDirectory from /home/pi to /var/www
-#      e.1) might need to revert to works/. versions if a home directory (/home/pi) and a base directory (var/www) are BOTH needed
-#      e.2) ensure /var/www directories are NOT deleted
 #   f) get static pages to work
 #      f.1) do a hello world static page, instead of rocketship
 #      f.2) ensure static files work
