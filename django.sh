@@ -406,7 +406,7 @@ function removePrevious {
 
     # restore default apache2 config file
     echo -e "    ${Bold}${Blue}restore default apache2 config file ${Black}${Normal}"
-    sudo cp /etc/apache2/sites-enabled/000-default.conf.backup /etc/apache2/sites-enabled/000-default.conf
+    sudo cp /etc/apache2/sites-enabled/000-default.conf.backup 
 
     # uninstall packages installed via Apt
     uninstallApt
