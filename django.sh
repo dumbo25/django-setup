@@ -49,10 +49,6 @@
 #
 # To Do List:
 # ??? **************************** STOPPED HERE ******************** ???
-#   h) port
-#      h.1) move from http 80 (or 8000) to https 443
-#      h.2) specify port in .cfg
-#      h.3) can any other port work to work *e.g., 8000 >> 443 or 8443)
 #
 #   x) fix issues in logs
 #      x.1) tail /var/log/apache2/access.log
