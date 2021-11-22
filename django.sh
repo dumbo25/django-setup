@@ -616,7 +616,7 @@ function getSettings {
 
 
 function getApacheConf {
-    # get 000-efault.conf
+    # get 000-default.conf
     echo -e "\n\n\n ${Bold}${Blue}apache2 was installed above, now set it up ${Black}${Normal}"
     echo -e "   ${Bold}${Blue} deactivate virtual env ${Black}${Normal}"
     deactivate
