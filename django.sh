@@ -1068,7 +1068,7 @@ echo -e "\n   ${Bold}${Blue} change ownership and permissions for db.sqlite3 ${B
 changeDirectory "$BaseDirectory"
 #   cannot use Django changeOwnership because it changes too much
 sudo chown :www-data "$DjangoProject"
-chmod g+w "$DjangoProject"
+sudo chmod g+w "$DjangoProject"
 if [ "$VirtualEnv" = false ]
 then
     changeDirectory "$DjangoProject/p_$DjangoProject"
