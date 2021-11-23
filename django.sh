@@ -618,8 +618,6 @@ function getSettings {
 function getApacheConf {
     # get 000-default.conf
     echo -e "\n\n\n ${Bold}${Blue}apache2 was installed above, now set it up ${Black}${Normal}"
-    echo -e "   ${Bold}${Blue} deactivate virtual env ${Black}${Normal}"
-    deactivate
 
     # there wass an issue in the Apache error log for -v:
     #   tail /var/log/apache2/error.log
@@ -638,6 +636,9 @@ function getApacheConf {
     log="\${APACHE_LOG_DIR}"
     if [ "$VirtualEnv" = true ]
     then
+        echo -e "   ${Bold}${Blue} deactivate virtual env ${Black}${Normal}"
+        deactivate
+
         static="$BaseDirectory/$DjangoProject/static"
         wsgi="$BaseDirectory/$DjangoProject/p_$DjangoProject"
         daemon="$DjangoProject python-path=$BaseDirectory/$DjangoProject python-home=$BaseDirectory/$DjangoProject$VirtualDirectory"
