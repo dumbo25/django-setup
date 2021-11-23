@@ -621,6 +621,20 @@ function getApacheConf {
     echo -e "   ${Bold}${Blue} deactivate virtual env ${Black}${Normal}"
     deactivate
 
+    # there wass an issue in the Apache error log for -v:
+    #   tail /var/log/apache2/error.log
+    #       Fatal Python error: initfsencoding: unable to load the file system codec
+    #       ModuleNotFoundError: No module named 'encodings'
+    # Kryptur: https://stackoverflow.com/questions/57082540/mod-wsgi-fatal-python-error-initfsencoding-unable-to-load-the-file-system-co
+    # recommended this fix, which works!
+    #   Change the daemon process to: remove python-home and add the project directory, which is automated below 
+    #	    sudo nano /etc/apache2/sites-enabled/000-default.conf
+    #           WSGIDaemonProcess TestProject python-path=/var/www/TestProject/p_TestProject
+    #           WSGIProcessGroup TestProject
+	#           WSGIScriptAlias / /var/www/TestProject/p_TestProject/p_TestProject/wsgi.py
+    #       sudo systemctl restart apache2.service
+	
+
     log="\${APACHE_LOG_DIR}"
     if [ "$VirtualEnv" = true ]
     then
@@ -631,7 +645,8 @@ function getApacheConf {
     else
         static="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/static"
         wsgi="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject"
-        daemon="$DjangoProject python-path=$BaseDirectory/$DjangoProject python-home=$BaseDirectory/$DjangoProject/p_$DjangoProject"
+        # see comments above
+        daemon="$DjangoProject python-path=$BaseDirectory/$DjangoProject/p_$DjangoProject"
         alias="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/wsgi.py"
     fi
 
