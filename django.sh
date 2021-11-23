@@ -783,7 +783,7 @@ function moveFiles {
 }
 
 # The script does not runs as sudo. So, This function changes ownership to the correct
-# settings based on the config file. Each enttry is a row in a table and includes:
+# settings based on the config file. Each entry is a row in a table and includes:
 #     "path or path/filename;ownership"
 function changeOwnership {
     # if there are files to move
@@ -1075,6 +1075,9 @@ fi
 chmod g+w db.sqlite3
 sudo chown :www-data db.sqlite3
 changeDirectory "$BaseDirectory"
+
+# add localhost ServerName to apache2.conf
+echo "ServerName 127.0.1.1" | sudo tee -a /etc/apache2/apache2.conf
 
 # reload and restart services
 reloadServices
