@@ -52,3 +52,132 @@
 ############################# <- 80 Characters -> ##############################
 
 ################################## Functions ###################################
+
+
+############################### Global Variables ###############################
+# change colors and styles on terminal output
+Bold=$(tput bold)
+Normal=$(tput sgr0)
+Red=$(tput setaf 1)
+Green=$(tput setaf 2)
+Blue=$(tput setaf 4)
+Black=$(tput sgr0)
+
+StartMessageCount=0
+
+# Options
+Clear=true
+Update=true
+VirtualEnv=true
+
+# Import configuration file for this script
+# The config file contains all the apps to install, all the modules to pip3,
+# all the files to get, the final path for each, and any permissions required.
+# It is basically just a collection of global variables telling the script what
+# to do.
+if [ -f django.cfg ]
+then
+    . django.cfg
+else
+    echoStartingScript
+    echo -e "\n  ${Red}ERROR: The Django setup script requires $BaseDirectory/django.cfg${Black}"
+    echo -e "\n    ${Red}Please wget django.cfg from github or create one.${Black}"
+    echoExitingScript
+fi
+
+
+########################### Start of Install Script  ###########################
+# Process command line options
+# All options must be listed in order following the : between the quotes on the
+# following line:
+while getopts ":chuv" option
+do
+    case $option in
+        c) # disable clear after update and upgrade
+            Clear=false
+            ;;
+        h) # display Help
+            help
+            exit;;
+        u) # skip update and upgrade steps
+            Update=false
+            ;;
+        v) # do not add or run from virtual env
+            VirtualEnv=false
+            VirtualDirectory=""
+            NoVirtualEnvDjangoDirectory="$HomeDirectory/.local/bin/"
+            ;;
+        *) # handle invalid options
+            echoStartingScript
+            echo -e "\n  ${Bold}${Red}ERROR: Invalid option ${Black}${Normal}"
+            echo -e "\n  ${Bold}${Blue}To see valid options, run using: ${Black}${Normal}"
+            echo -e "\n    \$ sudo bash ${0##*/} -h ${Black}"
+            echoExitingScript
+    esac
+done
+
+
+# Exit if running as sudo or root
+if [ "$EUID" -eq 0 ]
+then
+    echo -e "\n  ${Bold}${Red}ERROR: Must NOT run as root or sudo ${Black}${Normal}"
+    echo -e "\n  ${Bold}${Red}To see valid options, run using: ${Black}${Normal}"
+    echo -e "\n    ${Red}\$ bash ${0##*/} ${Black}"
+    echoExitingScript
+fi
+
+# pip3_install fails if errexit is enabled, not sure why
+# exit on error
+# set -o errexit
+
+# exit if variable is used but not set
+set -u
+# set -o nounset
+
+
+
+
+
+
+
+if [ "$VirtualEnv" = true ]
+then
+    a_cmd="source $BaseDirectory/$DjangoProject$VirtualDirectory/bin/activate"
+    b_cmd="$BaseDirectory/$DjangoProject/manage.py runserver $IP_ADDRESS:$DjangoPort"
+else
+    a_cmd="cd p_$DjangoProject"
+    b_cmd="python3 manage.py runserver $IP_ADDRESS:$DjangoPort"
+fi
+
+
+# if ufw is enabled, then allow the port: $DjangoPort
+c=$(sudo ufw status | grep active)
+if [[ "$c" == *"inactive"* ]]
+then
+    echo "ufw is installed and inactive"
+elif [[ "$c" == *"active"* ]]
+then
+    echo "ufw is installed and active"
+    echo "   adding rule allow from 192.168.1.0/24 to any port $DjangoPort"
+    sudo ufw allow from 192.168.1.0/24 to any port "$DjangoPort"
+# else
+    echo "ufw is not installed"
+fi
+
+changeDirectory "$BaseDirectory"
+read -r -d '' ServerScript <<- EOM
+# Run these commands:
+  cd "$BaseDirectory/$DjangoProject"
+  ${a_cmd}
+  ${b_cmd}
+
+# Or, run this script:
+#   "bash $BaseDirectory/server.sh"
+#
+# Then open a browser and enter: http://$IP_ADDRESS:$DjangoPort
+EOM
+
+echo "$ServerScript" >| server.sh
+
+echo -e "\n${Bold}${Green}$ServerScript ${Black}${Normal}"
+echoExitingScript
