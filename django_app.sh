@@ -35,14 +35,14 @@
 #      c.2) do a hello world static page, instead of rocketship
 #      c.3) ensure static files work
 #      c.4) turn off django debug
-		# the app script can add multiple apps
-		# must enable static pages
-		# must create yellow world page
-		# must work in both venv and no-venv
+#   d) the app script can add multiple apps
+#   e) must enable static pages
+#   f) must create hello world static page
+#   g) must work in both venv and no-venv
 #
-#   w) tesr all options
+#   w) test all options
 #   x) install from scratch 
-#   y) run shellccheck
+#   y) run shellcheck
 #   z) check into github
 #
 # Do later or not at all:
