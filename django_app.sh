@@ -17,17 +17,6 @@
 # comments, docstrings or help within the code. Next, I remove the completed
 # items.
 #
-# Create a deploy script (move to a new scipt)
-#   a) deploy script
-#      a.1) security checklist
-#      a.2) turn off Django debug
-#      a.3) run this: manage.py check --deploy
-#      a.4) use systemd to start webserver
-#           generate myproject.services file systemd and load and start service at boot
-#
-# Create a seperate script to add css (move to a new script)
-#   a) add ui css
-#
 # To Do List:
 #   a) create a shell script for apps
 #      a.1) need to add urls.py to each app
