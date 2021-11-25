@@ -52,6 +52,24 @@
 ############################# <- 80 Characters -> ##############################
 
 ################################## Functions ###################################
+function echoStartingScript {
+    if [ "$StartMessageCount" -eq 0 ]
+    then
+    echo -e "\n${Bold}${Blue}Starting Script to add a Django App ${Black}${Normal}"
+    echo "  ${Bold}${Blue}setting up $Name ${Black}${Normal}"
+    StartMessageCount=1
+    fi
+}
+
+function echoExitingScript {
+    echo -e "\n${Bold}${Blue}Exiting Script to add a Django App ${Black}${Normal}"
+    exit
+}
+
+
+function help {
+    echo -e "\n$Help"
+}
 
 
 ############################### Global Variables ###############################
@@ -75,13 +93,13 @@ VirtualEnv=true
 # all the files to get, the final path for each, and any permissions required.
 # It is basically just a collection of global variables telling the script what
 # to do.
-if [ -f django.cfg ]
+if [ -f django_app.cfg ]
 then
-    . django.cfg
+    . django_app.cfg
 else
     echoStartingScript
-    echo -e "\n  ${Red}ERROR: The Django setup script requires $BaseDirectory/django.cfg${Black}"
-    echo -e "\n    ${Red}Please wget django.cfg from github or create one.${Black}"
+    echo -e "\n  ${Red}ERROR: The Django setup script requires $BaseDirectory/django_app.cfg${Black}"
+    echo -e "\n    ${Red}Please wget django_app.cfg from github or create one.${Black}"
     echoExitingScript
 fi
 
