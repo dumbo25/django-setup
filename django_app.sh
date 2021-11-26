@@ -131,7 +131,7 @@ then
 else
     echoStartingScript
     echo -e "\n  ${Red}ERROR: The Django setup script requires $HomeDirectory/django.cfg${Black}"
-    echo -e "\n    ${Red}Please wget django_app.cfg from github or create one.${Black}"
+    echo -e "\n    ${Red}Please wget django.cfg from github or create one.${Black}"
     echoExitingScript
 fi
 
