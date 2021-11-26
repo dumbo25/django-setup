@@ -215,8 +215,8 @@ sed -i "s/DEBUG = True.*/DEBUG = False/" "$SettingsFile"
 #
 # Add an app called $AppName
 # python3 /var/www/TestProject/p_TestProject/manage.py startapp $AppName
-echo "DEBUG: path = $BaseDirectory/$DjangoName/p_$DjangoName"
-python3 "$BaseDirectory/$DjangoName/p_$DjangoName/manage.py" startapp "$AppName"
+echo "DEBUG: path = $BaseDirectory/$DjangoName/p_$DjangoProject"
+python3 "$BaseDirectory/$DjangoProject/p_$DjangoProject/manage.py" startapp "$AppName"
 #
 # edit INSTALLED_APPS in settings.py to include AppName
 addAppToSettings "$AppName.apps.PagesConfig,  # app added by django_app.sh"
