@@ -48,7 +48,7 @@
 # Do later or not at all:
 #
 # References:
-#
+#   Django for Beginners, CHapter Hello World App, https://djangoforbeginners.com/hello-world/
 ############################# <- 80 Characters -> ##############################
 
 ################################## Functions ###################################
@@ -69,6 +69,38 @@ function echoExitingScript {
 
 function help {
     echo -e "\n$Help"
+}
+
+# shmakovpn, https://stackoverflow.com/questions/7323243/django-app-install-script-how-to-add-app-to-installed-apps-setting
+# checks if app ($1) is in the django project settings file
+is_app_in_django_settings() {
+    # checking that django project settings file exists
+    if [ ! -f $SettingsFile ]; then
+        echo "Error: The django project settings file '$SettingsFile' does not exist"
+        exit 1
+    fi
+    cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?" > /dev/null 2>&1
+    # now $?=0 if app is in settings file
+    # $? not 0 otherwise
+}
+
+# adds app $1 to the django project settings
+add_app2django_settings() {
+    is_app_in_django_settings $1
+    if [ $? -ne 0 ]; then
+        echo "Info. The app '$1' is not in the django project settings file '$SettingsFile'. Adding."
+        sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
+        # checking that app $1 successfully added to django project settings file
+        is_app_in_django_settings $1
+        if [ $? -ne 0 ]; then
+            echo "Error. Could not add the app '$1' to the django project settings file '$SettingsFile'. Add it manually, then run this script again."
+            exit 1
+        else
+            echo "Info. The app '$1' was successfully added to the django settings file '$SettingsFile'."
+        fi
+    else
+        echo "Info. The app '$1' is already in the django project settings file '$SettingsFile'"
+    fi
 }
 
 
@@ -154,7 +186,62 @@ set -u
 
 
 
+# steps to getting a static page to work
+if [ "$VirtualEnv" = true ]
+then
+    echo "DEBUG: premature exit - haven't started venv app yet"
+    exit
+else
+# non-venv directories
+#     /var/www/TestProject/p_TestProject
+#         db.sqlite3  manage.py  p_TestProject  settings.py  static
+#     /var/www/TestProject/p_TestProject/p_TestProject
+#         asgi.py  __init__.py  __pycache__  settings.py  static  urls.py  wsgi.py
+#     Run
+#         bash /var/www/server.sh
+#     or
+#         cd /var/www/TestProject/p_TestProject
+#         python3 manage.py runserver 192.168.1.175:8080
+#
+# Eliminate Django rocket ship page (Not Found reponse)
+#   Shouldn't run in production with Debug = True
+sed -i "s/DEBUG = True.*/DEBUG = False/" /var/www/TestProject/p_TestProject/p_TestProject/settings.py
+#
+# Add an app called "hello"
+python3 /var/www/TestProject/p_TestProject/manage.py startapp hello
+#
+# edit INSTALLED_APPS in settings.py to include hello
+SettingsFile="/var/www/TestProject/p_TestProject/p_TestProject/settings.py"
+add_app2django_settings "hello.apps.PagesConfig,  # app added by django_app.sh"
+#
+# PagesConfig is pages/apps.py 
+# nano pages/views.py
+#     # pages/views.py
+#     from django.http import HttpResponse
+# 
+#     def homePageView(request):
+#         return HttpResponse("Hello, World!")
+# nano pages/urls.py
+#     # pages/urls.py
+#     from django.urls import path
+#     from .views import homePageView
+# 
+#     urlpatterns = [
+#         path("", homePageView, name="home"),
+#     ]
+# nano django_project/urls.py
+#     # django_project/urls.py
+#     from django.contrib import admin
+#     from django.urls import path, include  # new
+# 
+#     urlpatterns = [
+#         path("admin/", admin.site.urls),
+#         path("", include("pages.urls")),  # new
+#     ]
+fi
 
+echo "DEBUG: premature exit"
+exit
 
 
 
