@@ -73,7 +73,7 @@ function help {
 
 # shmakovpn, https://stackoverflow.com/questions/7323243/django-app-install-script-how-to-add-app-to-installed-apps-setting
 # checks if app ($1) is in the django project settings file
-is_app_in_django_settings() {
+isAppInSettings() {
     # checking that django project settings file exists
     if [ ! -f $SettingsFile ]; then
         echo "Error: The django project settings file '$SettingsFile' does not exist"
@@ -85,13 +85,13 @@ is_app_in_django_settings() {
 }
 
 # adds app $1 to the django project settings
-add_app2django_settings() {
-    is_app_in_django_settings $1
+addAppToSettings() {
+    isAppInSettings $1
     if [ $? -ne 0 ]; then
         echo "Info. The app '$1' is not in the django project settings file '$SettingsFile'. Adding."
         sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
         # checking that app $1 successfully added to django project settings file
-        is_app_in_django_settings $1
+        isAppInSettings $1
         if [ $? -ne 0 ]; then
             echo "Error. Could not add the app '$1' to the django project settings file '$SettingsFile'. Add it manually, then run this script again."
             exit 1
@@ -185,6 +185,12 @@ set -u
 # set -o nounset
 
 
+# Start of steps to add a Django App
+SettingsFile="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/settings.py"
+echo "DEBUG: SettingsFile = $SettingsFile"
+
+AppName="hello"
+echo "DBUG: AppName = $AppName"
 
 # steps to getting a static page to work
 if [ "$VirtualEnv" = true ]
@@ -205,14 +211,15 @@ else
 #
 # Eliminate Django rocket ship page (Not Found reponse)
 #   Shouldn't run in production with Debug = True
-sed -i "s/DEBUG = True.*/DEBUG = False/" /var/www/TestProject/p_TestProject/p_TestProject/settings.py
+sed -i "s/DEBUG = True.*/DEBUG = False/" "$SettingsFile"
 #
-# Add an app called "hello"
-python3 /var/www/TestProject/p_TestProject/manage.py startapp hello
+# Add an app called $AppName
+# python3 /var/www/TestProject/p_TestProject/manage.py startapp $AppName
+echo "DEBUG: path = $BaseDirectory/$DjangoName/p_$DjangoName"
+python3 "$BaseDirectory/$DjangoName/p_$DjangoName/manage.py" startapp "$AppName"
 #
 # edit INSTALLED_APPS in settings.py to include hello
-SettingsFile="/var/www/TestProject/p_TestProject/p_TestProject/settings.py"
-add_app2django_settings "hello.apps.PagesConfig,  # app added by django_app.sh"
+addAppToSettings"hello.apps.PagesConfig,  # app added by django_app.sh"
 #
 # PagesConfig is pages/apps.py 
 # nano pages/views.py
