@@ -218,8 +218,12 @@ sed -i "s/DEBUG = True.*/DEBUG = False/" "$SettingsFile"
 echo "DEBUG: path = $BaseDirectory/$DjangoName/p_$DjangoName"
 python3 "$BaseDirectory/$DjangoName/p_$DjangoName/manage.py" startapp "$AppName"
 #
-# edit INSTALLED_APPS in settings.py to include hello
-addAppToSettings"hello.apps.PagesConfig,  # app added by django_app.sh"
+# edit INSTALLED_APPS in settings.py to include AppName
+addAppToSettings "$AppName.apps.PagesConfig,  # app added by django_app.sh"
+
+echo "DEBUG: premature exit - STOPPED HERE"
+exit
+
 #
 # PagesConfig is pages/apps.py 
 # nano pages/views.py
