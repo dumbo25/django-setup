@@ -125,12 +125,12 @@ VirtualEnv=true
 # all the files to get, the final path for each, and any permissions required.
 # It is basically just a collection of global variables telling the script what
 # to do.
-if [ -f django_app.cfg ]
+if [ -f django.cfg ]
 then
-    . django_app.cfg
+    . django.cfg
 else
     echoStartingScript
-    echo -e "\n  ${Red}ERROR: The Django setup script requires $BaseDirectory/django_app.cfg${Black}"
+    echo -e "\n  ${Red}ERROR: The Django setup script requires $HomeDirectory/django.cfg${Black}"
     echo -e "\n    ${Red}Please wget django_app.cfg from github or create one.${Black}"
     echoExitingScript
 fi
