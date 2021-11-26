@@ -76,7 +76,7 @@ function help {
 isAppInSettings() {
     # checking that django project settings file exists
     if [ ! -f $SettingsFile ]; then
-        echo "Error: The django project settings file '$SettingsFile' does not exist"
+        echo "Error: IsAppInSettings: The django project settings file '$SettingsFile' does not exist"
         exit 1
     fi
     cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?" > /dev/null 2>&1
@@ -87,12 +87,14 @@ isAppInSettings() {
 # adds app $1 to the django project settings
 addAppToSettings() {
     isAppInSettings $1
-    if [ $? -ne 0 ]; then
-        echo "Info. The app '$1' is not in the django project settings file '$SettingsFile'. Adding."
+    if [ $? -ne 0 ]
+    then
+        echo "app '$1' is not in $SettingsFile. Adding."
         sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
         # checking that app $1 successfully added to django project settings file
         isAppInSettings $1
-        if [ $? -ne 0 ]; then
+        if [ $? -ne 0 ]
+        then
             echo "Error. Could not add the app '$1' to the django project settings file '$SettingsFile'. Add it manually, then run this script again."
             exit 1
         else
