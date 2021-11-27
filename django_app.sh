@@ -227,7 +227,7 @@ echo "DEBUG: path = $BaseDirectory/$DjangoProject/p_$DjangoProject"
 python3 "$BaseDirectory/$DjangoProject/p_$DjangoProject/manage.py" startapp "$AppName"
 #
 # edit INSTALLED_APPS in settings.py to include AppName
-addAppToSettings "$AppName.apps.PagesConfig,"
+addAppToSettings "$AppName.apps.PagesConfig"
 
 echo "DEBUG: premature exit - STOPPED HERE"
 exit
