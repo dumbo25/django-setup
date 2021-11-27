@@ -238,7 +238,7 @@ from django.http import HttpResponse
          return HttpResponse("Hello, World!")
 EOM
 cd "$BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName"
-echo "$ViewPy" >| views.py
+echo "$ViewsPy" >| views.py
 
 echo "DEBUG: django_app.sh: premature exit - STOPPED HERE"
 exit
