@@ -88,7 +88,7 @@ addAppToSettings() {
     if [ "$Result" = "" ]
     then
         echo "Adding $1 to $SettingsFile"
-        sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
+        sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1'$1',\n/g" $SettingsFile
 
         # was it added?
         isAppInSettings $1
@@ -134,7 +134,7 @@ else
 fi
 
 
-########################### Start of Install Script  ###########################
+########################## Start of Install Script  ###########################
 # Process command line options
 # All options must be listed in order following the : between the quotes on the
 # following line:
@@ -193,7 +193,7 @@ echo "DEBUG: django_app.sh: AppName = $AppName"
 # steps to getting a static page to work
 if [ "$VirtualEnv" = true ]
 then
-    echo "DEBUG: django_app.sh: premature exit - haven't started venv app yet"
+    echo "DEBUG: django_app.sh: premature exit - have not started venv app yet"
     exit
 else
 # non-venv directories
@@ -251,7 +251,7 @@ exit
 #     ]
 fi
 
-echo "DEBUG: premature exit"
+echo "DEBUG: django_app.sh: premature exit"
 exit
 
 
