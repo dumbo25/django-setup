@@ -89,7 +89,7 @@ addAppToSettings() {
     if [ "$Result" = "" ]
     then
         echo "Adding $1 to $SettingsFile"
-        sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1'$1',\n/g" $SettingsFile
+        sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
 
         # was it added?
         isAppInSettings $1
@@ -218,19 +218,24 @@ echo "DEBUG: django_app.sh: path = $BaseDirectory/$DjangoProject"
 cd "$BaseDirectory/$DjangoProject/p_$DjangoProject"
 python3 manage.py startapp "$AppName"
 
-# edit INSTALLED_APPS in settings.py to include AppName
+# PagesConfig is /var/www/$DjangoProject/p_$DjangoProject/$AppName/apps.py 
+#   edit INSTALLED_APPS in settings.py to include AppName
 addAppToSettings "$AppName.apps.PagesConfig"
+
+# Change $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/views.py
+read -r -d '' ViewsPy <<- EOM
+#  $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/views.py
+from django.http import HttpResponse
+
+     def homePageView(request):
+         return HttpResponse("Hello, World!")
+EOM
+cd "$BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName"
+echo "$ViewPy" >| views.py
 
 echo "DEBUG: django_app.sh: premature exit - STOPPED HERE"
 exit
 
-# PagesConfig is pages/apps.py 
-# nano pages/views.py
-#     # pages/views.py
-#     from django.http import HttpResponse
-# 
-#     def homePageView(request):
-#         return HttpResponse("Hello, World!")
 #
 # nano pages/urls.py
 #     # pages/urls.py
