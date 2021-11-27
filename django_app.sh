@@ -229,34 +229,49 @@ fi
 #   edit INSTALLED_APPS in settings.py to include AppName
 addAppToSettings "$AppName.apps.PagesConfig"
 
+# ??? Hello World! is very specific and NOT a generic solution for any App
 # Change $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/views.py
 read -r -d '' ViewsPy <<- EOM
 #  $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/views.py
 from django.http import HttpResponse
 
-     def homePageView(request):
-         return HttpResponse("Hello, World!")
+def homePageView(request):
+    return HttpResponse("Hello, World!")
 EOM
 cd "$BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName"
 echo "$ViewsPy" >| views.py
 
+
+# *********************** STOPPED HERE *********************
+# Change $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/urls.py
+read -r -d '' UrlsPy <<- EOM
+#  $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/urls.py
+from django.urls import path
+from .views import homePageView
+
+urlpatterns = [
+    path("", homePageView, name="home"),
+]
+EOM
+cd "$BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName"
+echo "$UrlsPy" >| urls.py
+
+
 echo "DEBUG: django_app.sh: premature exit - STOPPED HERE"
 exit
 
-#
-# nano pages/urls.py
-#     # pages/urls.py
-#     from django.urls import path
-#     from .views import homePageView
-# 
-#     urlpatterns = [
-#         path("", homePageView, name="home"),
-#     ]
-# 
+# *********************** STOPPED HERE - seems like same file as above *********************
+
+# need two sed commands
+cd "$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject
+sed -i -e '1h;2,$H;$!d;g' -re "s/(urlpatterns\s?=\s?\[[\n '._a-zA-Z,]*)/\1    path(\"\", include(\"$AppName.urls\")),  # added by django_app.sh\n/g" urls.py
+
+sed '/^anothervalue=.*/a after=me' test.txt
+
 # nano django_project/urls.py
 #     # django_project/urls.py
 #     from django.contrib import admin
-#     from django.urls import path, include  # new
+#     from django.urls import path, include  # new ??? this doesn't seem correct! Is urlpattersn included???
 # 
 #     urlpatterns = [
 #         path("admin/", admin.site.urls),
