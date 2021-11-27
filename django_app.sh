@@ -218,8 +218,8 @@ echo "DEBUG: django_app.sh: path = $BaseDirectory/$DjangoProject"
 cd "$BaseDirectory/$DjangoProject/p_$DjangoProject"
 if [ -d "$AppName" ]
 then
-    echo -e "\n  ${Red}ERROR: $AppName has already been used ${Black}"
-    echo -e "\n    ${Red} Exiting ${Black}"
+    echo -e "\n  ${Bold}${Red}ERROR: $AppName has already been used ${Black}${Normal}"
+    echo -e "    ${Bold}${Red}   Exiting ${Black}${Normal}"
     exit
 else
     python3 manage.py startapp "$AppName"
