@@ -216,7 +216,14 @@ sed -i "s/DEBUG = True.*/DEBUG = False/" "$SettingsFile"
 #   need to be in correct directory
 echo "DEBUG: django_app.sh: path = $BaseDirectory/$DjangoProject"
 cd "$BaseDirectory/$DjangoProject/p_$DjangoProject"
-python3 manage.py startapp "$AppName"
+if [ -d "$AppName" ]
+then
+    echo -e "\n  ${Red}ERROR: $AppName has already been used ${Black}"
+    echo -e "\n    ${Red} Exiting ${Black}"
+    exit
+else
+    python3 manage.py startapp "$AppName"
+fi
 
 # PagesConfig is /var/www/$DjangoProject/p_$DjangoProject/$AppName/apps.py 
 #   edit INSTALLED_APPS in settings.py to include AppName
