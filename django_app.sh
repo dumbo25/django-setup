@@ -73,9 +73,10 @@ function help {
 
 # check if app ($1) is in the django project settings file
 isAppInSettings() {
-    if [ ! -f $SettingsFile ]; then
-        echo -e "\n${Bold}${Red)Exiting Script to add a Django App ${Black}${Normal}"
-        echo -e "${Bold}${Red)$SettingsFile does not exist ${Black}${Normal}"
+    if [ ! -f $SettingsFile ]
+    then
+        echo -e "\n${Bold}${Red}Exiting Script to add a Django App ${Black}${Normal}"
+        echo -e "${Bold}${Red}$SettingsFile does not exist ${Black}${Normal}"
         exit 1
     else
        Result=$(cat $SettingsFile | grep $1)
@@ -94,8 +95,8 @@ addAppToSettings() {
         isAppInSettings $1
         if [ "$Result" = "" ]
         then
-            echo -e "\n${Bold}${Red)Exiting Script to add a Django App ${Black}${Normal}"
-            echo -e "${Bold}${Red)Failed to add $1 to $SettingsFile ${Black}${Normal}"
+            echo -e "\n${Bold}${Red}Exiting Script to add a Django App ${Black}${Normal}"
+            echo -e "${Bold}${Red}Failed to add $1 to $SettingsFile ${Black}${Normal}"
             exit 1
         fi
     fi
