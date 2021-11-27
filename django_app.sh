@@ -74,18 +74,20 @@ function help {
 # shmakovpn, https://stackoverflow.com/questions/7323243/django-app-install-script-how-to-add-app-to-installed-apps-setting
 # checks if app ($1) is in the django project settings file
 isAppInSettings() {
-    # checking that django project settings file exists
+    echo "DEBUG: isAppInSettings: SettingsFile = $SettingsFile"
     if [ ! -f $SettingsFile ]; then
-        echo "Error: IsAppInSettings: The django project settings file '$SettingsFile' does not exist"
+        echo "Error: IsAppInSettings: $SettingsFile does not exist"
         exit 1
+    else
+       # if app is in $SettingsFile then $?=0 
+       # otherwise $? not 0
+       cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?" > /dev/null 2>&1
     fi
-    cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?" > /dev/null 2>&1
-    # now $?=0 if app is in settings file
-    # $? not 0 otherwise
 }
 
 # adds app $1 to the django project settings
 addAppToSettings() {
+    echo "DEBUG: addAppToSettings: app = $1"
     isAppInSettings $1
     result=$?
     echo "DEBUG: addAppToSettings: result = $result"
