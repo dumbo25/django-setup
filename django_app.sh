@@ -71,42 +71,33 @@ function help {
     echo -e "\n$Help"
 }
 
-# shmakovpn, https://stackoverflow.com/questions/7323243/django-app-install-script-how-to-add-app-to-installed-apps-setting
 # checks if app ($1) is in the django project settings file
 isAppInSettings() {
-    echo "DEBUG: isAppInSettings: SettingsFile = $SettingsFile"
     if [ ! -f $SettingsFile ]; then
-        echo "Error: IsAppInSettings: $SettingsFile does not exist"
+        echo -e "\n${Bold}${Red)Exiting Script to add a Django App ${Black}${Normal}"
+        echo -e "\n${Bold}${Red)$SettingsFile does not exist ${Black}${Normal}"
         exit 1
     else
-       # if app is in $SettingsFile then $?=0 
-       # otherwise $? not 0
-       # cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?" > /dev/null 2>&1
        Result=$(cat $SettingsFile | grep $1)
     fi
 }
 
 # adds app $1 to the django project settings
 addAppToSettings() {
-    echo "DEBUG: addAppToSettings: app = $1"
     isAppInSettings $1
-    echo "DEBUG: addAppToSettings: Result = [$Result]"
     if [ "$Result" = "" ]
     then
-        echo "app '$1' is not in $SettingsFile. Adding."
+        echo "Adding $1 to $SettingsFile"
         sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
-        # checking that app $1 successfully added to django project settings file
+
+        # was it added?
         isAppInSettings $1
-    echo "DEBUG: addAppToSettings: Result = $Result"
         if [ "$Result" = "" ]
         then
-            echo "Error. Could not add the app '$1' to the django project settings file '$SettingsFile'. Add it manually, then run this script again."
+            echo -e "\n${Bold}${Red)Exiting Script to add a Django App ${Black}${Normal}"
+            echo -e "\n${Bold}${Red)Failed to add $1 to $SettingsFile ${Black}${Normal}"
             exit 1
-        else
-            echo "DEBUG: addAppToSettings: The app '$1' was successfully added to the django settings file '$SettingsFile'."
         fi
-    else
-        echo "DEBUG: addAppToSettings: The app '$1' is already in the django project settings file '$SettingsFile'"
     fi
 }
 
