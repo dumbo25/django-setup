@@ -71,18 +71,18 @@ function help {
     echo -e "\n$Help"
 }
 
-# checks if app ($1) is in the django project settings file
+# check if app ($1) is in the django project settings file
 isAppInSettings() {
     if [ ! -f $SettingsFile ]; then
         echo -e "\n${Bold}${Red)Exiting Script to add a Django App ${Black}${Normal}"
-        echo -e "\n${Bold}${Red)$SettingsFile does not exist ${Black}${Normal}"
+        echo -e "${Bold}${Red)$SettingsFile does not exist ${Black}${Normal}"
         exit 1
     else
        Result=$(cat $SettingsFile | grep $1)
     fi
 }
 
-# adds app $1 to the django project settings
+# if app ($1) is not in INSTALLED_APPS, then add to the django project settings file
 addAppToSettings() {
     isAppInSettings $1
     if [ "$Result" = "" ]
@@ -95,7 +95,7 @@ addAppToSettings() {
         if [ "$Result" = "" ]
         then
             echo -e "\n${Bold}${Red)Exiting Script to add a Django App ${Black}${Normal}"
-            echo -e "\n${Bold}${Red)Failed to add $1 to $SettingsFile ${Black}${Normal}"
+            echo -e "${Bold}${Red)Failed to add $1 to $SettingsFile ${Black}${Normal}"
             exit 1
         fi
     fi
@@ -185,15 +185,15 @@ set -u
 
 # Start of steps to add a Django App
 SettingsFile="$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject/settings.py"
-echo "DEBUG: SettingsFile = $SettingsFile"
+echo "DEBUG: django_app.sh: SettingsFile = $SettingsFile"
 
 AppName="hello"
-echo "DBUG: AppName = $AppName"
+echo "DEBUG: django_app.sh: AppName = $AppName"
 
 # steps to getting a static page to work
 if [ "$VirtualEnv" = true ]
 then
-    echo "DEBUG: premature exit - haven't started venv app yet"
+    echo "DEBUG: django_app.sh: premature exit - haven't started venv app yet"
     exit
 else
 # non-venv directories
@@ -210,19 +210,19 @@ else
 # Eliminate Django rocket ship page (Not Found reponse)
 #   Shouldn't run in production with Debug = True
 sed -i "s/DEBUG = True.*/DEBUG = False/" "$SettingsFile"
-#
+
 # Add an app called $AppName
-# python3 /var/www/TestProject/p_TestProject/manage.py startapp $AppName
-echo "DEBUG: path = $BaseDirectory/$DjangoProject/p_$DjangoProject"
-python3 "$BaseDirectory/$DjangoProject/p_$DjangoProject/manage.py" startapp "$AppName"
-#
+#   need to be in correct directory
+echo "DEBUG: django_app.sh: path = $BaseDirectory/$DjangoProject"
+cd "$BaseDirectory/$DjangoProject/p_$DjangoProject"
+python3 manage.py startapp "$AppName"
+
 # edit INSTALLED_APPS in settings.py to include AppName
 addAppToSettings "$AppName.apps.PagesConfig"
 
-echo "DEBUG: premature exit - STOPPED HERE"
+echo "DEBUG: django_app.sh: premature exit - STOPPED HERE"
 exit
 
-#
 # PagesConfig is pages/apps.py 
 # nano pages/views.py
 #     # pages/views.py
@@ -230,6 +230,7 @@ exit
 # 
 #     def homePageView(request):
 #         return HttpResponse("Hello, World!")
+#
 # nano pages/urls.py
 #     # pages/urls.py
 #     from django.urls import path
@@ -238,6 +239,7 @@ exit
 #     urlpatterns = [
 #         path("", homePageView, name="home"),
 #     ]
+# 
 # nano django_project/urls.py
 #     # django_project/urls.py
 #     from django.contrib import admin
