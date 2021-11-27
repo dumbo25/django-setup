@@ -83,6 +83,7 @@ isAppInSettings() {
        # otherwise $? not 0
        # cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?" > /dev/null 2>&1
        Result=$(cat $SettingsFile | grep -Pzo "INSTALLED_APPS\s?=\s?\[[\s\w\.,']*$1[\s\w\.,']*\]\n?")
+       Result=$(echo $Result | grep $1)
     fi
 }
 
