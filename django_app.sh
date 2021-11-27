@@ -90,15 +90,15 @@ isAppInSettings() {
 addAppToSettings() {
     echo "DEBUG: addAppToSettings: app = $1"
     isAppInSettings $1
-    echo "DEBUG: addAppToSettings: Result = $Result"
-    if [ $Result = "" ]
+    echo "DEBUG: addAppToSettings: Result = [$Result]"
+    if [ "$Result" = "" ]
     then
         echo "app '$1' is not in $SettingsFile. Adding."
         sed -i -e '1h;2,$H;$!d;g' -re "s/(INSTALLED_APPS\s?=\s?\[[\n '._a-zA-Z,]*)/\1    '$1',\n/g" $SettingsFile
         # checking that app $1 successfully added to django project settings file
         isAppInSettings $1
     echo "DEBUG: addAppToSettings: Result = $Result"
-        if [ $Result = "" ]
+        if [ "$Result" = "" ]
         then
             echo "Error. Could not add the app '$1' to the django project settings file '$SettingsFile'. Add it manually, then run this script again."
             exit 1
