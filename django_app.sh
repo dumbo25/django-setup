@@ -270,8 +270,6 @@ sed -i "s/from django\.urls import path/from django.urls import path, include  \
 
 sed -i -e '1h;2,$H;$!d;g' -re "s/(urlpatterns\s?=\s?\[[\n '._a-zA-Z,]*)/\1    path(\"\", include(\"$AppName.urls\")),  # added by django_app.sh\n/g" urls.py
 
-sed '/^anothervalue=.*/a after=me' test.txt
-
 # nano django_project/urls.py
 #     # django_project/urls.py
 #     from django.contrib import admin
