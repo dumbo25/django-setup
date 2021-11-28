@@ -243,6 +243,7 @@ echo "$ViewsPy" >| views.py
 
 
 # *********************** STOPPED HERE *********************
+# Change urls.py in $AppName directory
 # Change $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/urls.py
 read -r -d '' UrlsPy <<- EOM
 #  $BaseDirectory/$DjangoProject/p_$DjangoProject/$AppName/urls.py
@@ -261,9 +262,12 @@ echo "DEBUG: django_app.sh: premature exit - STOPPED HERE"
 exit
 
 # *********************** STOPPED HERE - seems like same file as above *********************
-
+# change urls.py in project directory
 # need two sed commands
 cd "$BaseDirectory/$DjangoProject/p_$DjangoProject/p_$DjangoProject
+# add include to import line
+sed -i "s/from django\.urls import path/from django.urls import path, include  \# added include via django_app.sh/g" urls.py
+
 sed -i -e '1h;2,$H;$!d;g' -re "s/(urlpatterns\s?=\s?\[[\n '._a-zA-Z,]*)/\1    path(\"\", include(\"$AppName.urls\")),  # added by django_app.sh\n/g" urls.py
 
 sed '/^anothervalue=.*/a after=me' test.txt
